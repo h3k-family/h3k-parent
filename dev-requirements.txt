@@ -1,0 +1,4 @@
+jedi
+autopep8
+pylint
+pynvim
