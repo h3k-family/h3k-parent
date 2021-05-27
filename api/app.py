@@ -85,7 +85,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
         raise HTTPException(
             status_code=400, detail="Incorrect username or password")
 
-    return {"acces_token": user.username, "token_type": "bearer"}
+    return {"access_token": user.username, "token_type": "bearer"}
 
 
 @app.get("/users/me")
