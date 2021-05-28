@@ -2,3 +2,4 @@ fastapi[all]
 passlib[bcrypt]
 python-jose
 python-dotenv
+sqlalchemy
