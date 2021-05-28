@@ -3,3 +3,5 @@ passlib[bcrypt]
 python-jose
 python-dotenv
 sqlalchemy
+psycopg2
+alembic
