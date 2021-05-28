@@ -1,3 +1,4 @@
+import os
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -5,9 +6,27 @@ from sqlalchemy import pool
 
 from alembic import context
 
+
+from dotenv import load_dotenv
+
+# parent_dir/alembic/env.py
+# We want the parent directory of env's parent directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
+db_user = os.environ.get("DB_USER")
+db_name = os.environ.get("DB_NAME")
+db_port = os.environ.get("DB_PORT")
+db_pass = os.environ.get("DB_PASS")
+db_host = os.environ.get("DB_HOST")
+db_url = "postgresql://{}:{}@{}:{}/{}"
+db_url = db_url.format(db_user, db_pass, db_host, db_port, db_name)
+
+config.set_main_option("sqlalchemy.url", db_url)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
