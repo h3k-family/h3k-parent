@@ -22,7 +22,7 @@ To deal with pylint's issues like [No name 'BaseModel' in module 'pydantic'](htt
   {
     "python.linting.pylintArgs": [
       "--extension-pkg-whitelist=pydantic",
-      "--disable=C0114, C0115, C0116"
+      "--disable=C0114, C0115, C0116, E1101"
     ]
   }
   ```
@@ -37,7 +37,7 @@ To deal with pylint's issues like [No name 'BaseModel' in module 'pydantic'](htt
   {
     "python.linting.pylintArgs": [
       "--extension-pkg-whitelist=pydantic",
-      "--disable=C0114, C0115, C0116"
+      "--disable=C0114, C0115, C0116, E1101"
     ]
   }
   ```
