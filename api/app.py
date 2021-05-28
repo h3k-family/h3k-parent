@@ -6,6 +6,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
+from auth import auth
 
 # openssl rand -hex 32
 SECRET_KEY = "9a4dbb8b7e5eff75422194bf5820b010607e29819520106db6617445c537d800"
@@ -23,6 +24,8 @@ fake_users_db = {
 }
 
 app = FastAPI()
+
+app.include_router(auth.router)
 
 
 class Token(BaseModel):
