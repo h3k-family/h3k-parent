@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from auth import auth
 
@@ -27,4 +28,6 @@ app.include_router(auth.router)
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    test_var = os.getenv("TEST_VAR")
+    test_var = test_var if test_var else "such empty :("
+    return {"message": "Hello World: " + test_var}
