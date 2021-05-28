@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime, timedelta
 from typing import Optional
 from pydantic import BaseModel
@@ -10,7 +11,7 @@ from passlib.context import CryptContext
 router = APIRouter()
 
 # openssl rand -hex 32
-SECRET_KEY = "9a4dbb8b7e5eff75422194bf5820b010607e29819520106db6617445c537d800"
+SECRET_KEY = str(uuid.uuid4())
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
