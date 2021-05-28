@@ -81,6 +81,4 @@ async def add_sensor_details(sensor: SensorDetails):
 
 @app.get("/")
 async def root():
-    test_var = os.getenv("TEST_VAR")
-    test_var = test_var if test_var else "such empty :("
-    return {"message": "Hello World: " + test_var}
+    return {"message": "Hello World"}
