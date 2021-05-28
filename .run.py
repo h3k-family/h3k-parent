@@ -37,3 +37,6 @@ DB_HOST="{}"
     os.system("alembic upgrade head")
 else:
     print("Environment variables not set. Won't do anything.")
+
+# 4. Run server
+os.system("uvicorn main:app --reload --host 0.0.0.0 --port 8080")
