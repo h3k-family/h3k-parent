@@ -1,7 +1,6 @@
 __pycache__/
 venv/
 *.sqlite3
-.env
 
 
 .coverage
@@ -10,3 +9,7 @@ coverage.*
 # Development config files
 .vscode/
 .vim/
+
+# Secrets
+.env
+*.cert
