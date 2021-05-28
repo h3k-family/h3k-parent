@@ -36,9 +36,11 @@ def connect():
     db_name = os.environ.get("DB_NAME")
     db_pass = os.environ.get("DB_PASS")
     db_port = os.environ.get("DB_PORT")
+    db_host = os.environ.get("DB_HOST")
     #  print(user, db_name, db_pass)
+    #  print(user, db_pass, db_host, db_port, db_name)
     url = "postgresql://{}:{}@{}:{}/{}"
-    url = url.format(user, db_pass, "db", db_port, db_name)
+    url = url.format(user, db_pass, db_host, db_port, db_name)
     # The return value of create_engine() is our connection object
     connection = sa.create_engine(url, client_encoding="utf8")
     # We then bind the connection to MetaData()
@@ -49,7 +51,7 @@ def connect():
 
 con, meta = connect()
 
-sensor_details = sa.Table(
+sensor_details_table = sa.Table(
     "sensor_details",
     meta,
     sa.Column("id", sa.Integer, primary_key=True),
@@ -68,7 +70,13 @@ class SensorDetails(BaseModel):
 
 @app.post("/add_sensor/")
 async def add_sensor_details(sensor: SensorDetails):
-    return sensor
+    query = sensor_details_table.insert().values(
+        sensor_name=sensor.sensor_name,
+        units_short=sensor.units_short,
+        units_long=sensor.units_long
+    )
+    result = con.execute(query)
+    return {"inserted_at": result.inserted_primary_key}
 
 
 @app.get("/")
