@@ -97,8 +97,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         if username is None:
             raise credentials_exception
         token_data = TokenData(username=username)
-    except JWTError:
-        raise credentials_exception
+    except JWTError as jwt_exc:
+        raise credentials_exception from jwt_exc
     user = get_user(fake_users_db, username=token_data.username)
     if user is None:
         raise credentials_exception
