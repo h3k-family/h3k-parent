@@ -1,6 +1,7 @@
 # h3k child
 ![by](https://img.shields.io/badge/by-c3n7-blue)
 ![license](https://img.shields.io/badge/license-BSD%202%20Clause-green)
+[![Python package](https://github.com/c3n7/h3k-child/actions/workflows/main.yml/badge.svg)](https://github.com/c3n7/h3k-child/actions/workflows/main.yml)
 [![dockerhub](https://img.shields.io/badge/images-Docker%20Hub-9cf)](https://hub.docker.com/repository/docker/c3n7/h3k-child)  
 Part of the ***h3k project***: an attempt at creating a federated system for pooling IoT data.
 
