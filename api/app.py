@@ -25,10 +25,6 @@ fake_users_db = {
 app = FastAPI()
 
 
-def fake_hash_password(password: str):
-    return "fakehashed" + password
-
-
 class Token(BaseModel):
     access_token: str
     token_type: str
@@ -77,13 +73,6 @@ def get_user(database, username: str):
         return UserInDB(**user_dict)
 
 
-def fake_decode_token(token):
-    # Doesn't provide any table,
-    # Check next version
-    user = get_user(fake_users_db, token)
-    return user
-
-
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     if expires_delta:
@@ -96,7 +85,6 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
-    user = fake_decode_token(token)
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Invalid authentication credentials",
