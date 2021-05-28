@@ -9,4 +9,5 @@ ENV DB_HOST="db_host"
 RUN pip install -r requirements.txt
 EXPOSE 8080
 COPY . .
-CMD ["python", ".run.py"]
+# CMD ["python", ".run.py"]
+CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8080"]
