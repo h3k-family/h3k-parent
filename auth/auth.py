@@ -72,6 +72,8 @@ def get_user(database, username: str):
         user_dict = database[username]
         return UserInDB(**user_dict)
 
+    return False
+
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
