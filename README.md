@@ -1,8 +1,8 @@
-# h3k child
+# h3k parent
 ![by](https://img.shields.io/badge/by-c3n7-blue)
 ![license](https://img.shields.io/badge/license-BSD%202%20Clause-green)
-[![Python package](https://github.com/c3n7/h3k-child/actions/workflows/main.yml/badge.svg)](https://github.com/c3n7/h3k-child/actions/workflows/main.yml)
-[![dockerhub](https://img.shields.io/badge/images-Docker%20Hub-9cf)](https://hub.docker.com/repository/docker/c3n7/h3k-child)  
+[![Python package](https://github.com/c3n7/h3k-parent/actions/workflows/main.yml/badge.svg)](https://github.com/c3n7/h3k-parent/actions/workflows/main.yml)
+[![dockerhub](https://img.shields.io/badge/images-Docker%20Hub-9cf)](https://hub.docker.com/repository/docker/c3n7/h3k-parent)  
 Part of the ***h3k project***: an attempt at creating a federated system for pooling IoT data.
 
 ## Setting up a development enviroment
@@ -46,11 +46,11 @@ where `venv/` is the folder containing your virtual environment.
 ## Building image
 1. Build 
     ```shell
-    $ docker build -t h3k-child .
+    $ docker build -t h3k-parent .
     ```
 2. Do a test run (optional)
     ```shell
-    $ docker run dp 7800:8080 h3k-child
+    $ docker run dp 7800:8080 h3k-parent
     ```
 3. Stop it once done testing.
     ```shell
@@ -58,11 +58,11 @@ where `venv/` is the folder containing your virtual environment.
     ```
 4. Tag it, where `username` is your docker hub's username.
     ```shell
-    $ docker tag h3k-child username/h3k-child
+    $ docker tag h3k-parent username/h3k-parent
     ```
 5. Push it
     ```shell
-    $ docker push username/h3k-child
+    $ docker push username/h3k-parent
     ```
 
 ---
