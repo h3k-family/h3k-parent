@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from auth import auth
 from auth import routes as auth_routes
 from sensors import routes as sensor_routes
 
