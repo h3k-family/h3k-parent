@@ -20,7 +20,8 @@ def upgrade():
     op.create_foreign_key(
         "fk_sensor_owner",
         "sensor_details", "users",
-        ["owner"], ["id"]
+        ["owner"], ["id"],
+        onupdate="CASCADE", ondelete="RESTRICT"
     )
 
 
