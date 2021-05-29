@@ -13,7 +13,7 @@ router = APIRouter()
 @router.post("/token", tags=["auth"])
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(
-        mo.fake_users_db, form_data.username, form_data.password)
+        form_data.username, form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

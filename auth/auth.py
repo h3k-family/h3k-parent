@@ -29,7 +29,7 @@ def get_password_hash(password):
     return pwd_context.hash(password)
 
 
-def authenticate_user(fake_db, username: str, password: str):
+def authenticate_user(username: str, password: str):
     user = get_user(username)
     if not user:
         return False
