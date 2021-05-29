@@ -3,7 +3,6 @@ from pydantic import BaseModel
 import sqlalchemy as sa
 from sqlalchemy.sql import expression
 from sqlalchemy.ext.compiler import compiles
-from sqlalchemy.types import DateTime
 from api.models import meta
 
 
