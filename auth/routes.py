@@ -34,3 +34,8 @@ async def read_users_me(current_user: mo.User = Depends(get_current_active_user)
 @router.get("/users/me/items/", tags=["auth"])
 async def read_own_items(current_user: mo.User = Depends(get_current_active_user)):
     return [{"item_id": "Foo", "owner": current_user.username}]
+
+
+@router.post("/users/add/", tags=["auth"])
+async def create_user(user: mo.UserInDB):
+    return user

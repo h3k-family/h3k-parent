@@ -37,6 +37,7 @@ def upgrade():
         sa.Column("username", sa.String(100)),
         sa.Column("email", sa.String(100)),
         sa.Column("password", sa.String(100)),
+        sa.Column("disabled", sa.Boolean),
         sa.Column("updated_at", sa.DateTime,
                   server_default=utcnow(), server_onupdate=utcnow()),
     )
