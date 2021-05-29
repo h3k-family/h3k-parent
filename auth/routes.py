@@ -4,7 +4,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from api.models import con
 import auth.models as mo
 from .auth import ACCESS_TOKEN_EXPIRE_MINUTES, get_current_active_user
-from .auth import create_access_token, authenticate_user
+from .auth import create_access_token, authenticate_user, pwd_context
 
 router = APIRouter()
 
@@ -42,7 +42,7 @@ async def create_user(user: mo.UserInDB):
     query = mo.user_table.insert().values(
         username=user.username,
         email=user.email,
-        password=user.hashed_password,
+        password=pwd_context.hash(user.hashed_password),
         disabled=user.disabled
     )
     result = con.execute(query)
