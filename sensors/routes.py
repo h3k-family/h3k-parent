@@ -7,10 +7,10 @@ from .models import sensor_details_table, SensorDetails
 from .models import sensor_data_table, SensorData
 
 
-router = APIRouter(tags=["sensors"])
+router = APIRouter(prefix="/sensors", tags=["sensors"])
 
 
-@router.post("/add_sensor/")
+@router.post("/add/")
 async def add_sensor_details(sensor: SensorDetails,
                              current_user: DbUser = Depends(get_current_active_user)):
     query = sensor_details_table.insert().values(
@@ -29,7 +29,7 @@ async def add_sensor_details(sensor: SensorDetails,
     return {"inserted_at": result.inserted_primary_key}
 
 
-@router.post("/add_sensor_data/")
+@router.post("/data/add/")
 async def add_sensor_data(sensor_data: SensorData,
                           _current_user: DbUser = Depends(get_current_active_user)):
     query = sensor_data_table.insert().values(
@@ -42,3 +42,8 @@ async def add_sensor_data(sensor_data: SensorData,
         return {"error": "could not save record"}
 
     return {"inserted_at": result.inserted_primary_key}
+
+
+@router.get("/data/")
+async def get_all_sensor_data():
+    return {"data": "all"}
