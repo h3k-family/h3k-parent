@@ -6,7 +6,7 @@ from auth.auth import get_current_active_user
 from auth.models import DbUser
 from .models import children_table, Child
 
-router = APIRouter(prefix="/children", tags=["sensors"])
+router = APIRouter(prefix="/children", tags=["children"])
 
 
 @router.post("/add/")

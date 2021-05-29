@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from auth import routes as auth_routes
-from sensors import routes as sensor_routes
+from children import routes as children_routes
 
 
 app = FastAPI(
@@ -10,7 +10,7 @@ app = FastAPI(
 )
 
 app.include_router(auth_routes.router)
-app.include_router(sensor_routes.router)
+app.include_router(children_routes.router)
 
 
 @app.get("/")
