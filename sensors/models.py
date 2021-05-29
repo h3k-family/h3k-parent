@@ -23,7 +23,7 @@ sensor_details_table = sa.Table(
     meta,
     sa.Column("id", sa.Integer, primary_key=True),
     sa.Column("sensor_name", sa.String(100)),
-    sa.Column("owner", sa.Integer),
+    sa.Column("owner", sa.Integer),  # Add foreign key relationship
     sa.Column("units_short", sa.String(20)),
     sa.Column("units_long", sa.String(50)),
     sa.Column("longitude", sa.Float),
@@ -38,3 +38,19 @@ class SensorDetails(BaseModel):
     units_long: str
     longitude: float
     latitude: float
+
+
+sensor_data_table = sa.Table(
+    "sensor_data",
+    meta,
+    sa.Column("id", sa.Integer, primary_key=True),
+    sa.Column("sensor_id", sa.Integer),
+    sa.Column("value", sa.Float),
+    sa.Column("updated_at", sa.DateTime,
+              server_default=utcnow(), server_onupdate=utcnow()),
+)
+
+
+class SensorData(BaseModel):
+    sensor_id: int
+    value: float
