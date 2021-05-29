@@ -4,7 +4,7 @@ from sensors import routes as sensor_routes
 
 
 app = FastAPI(
-    title="h3k-child API",
+    title="h3k-parent API",
     description="Haba na haba, hujaza kibaba. Part of the h3k project.",
     version="0.0.1",
 )
