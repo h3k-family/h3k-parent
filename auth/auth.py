@@ -6,6 +6,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+from api.models import con
 
 import auth.models as mo
 
@@ -38,11 +39,18 @@ def authenticate_user(fake_db, username: str, password: str):
 
 
 def get_user(database, username: str):
-    if username in database:
-        user_dict = database[username]
-        return mo.UserInDB(**user_dict)
+    sttmt = mo.sa.select(mo.user_table).where(
+        mo.user_table.c.username == username
+    )
+    result = con.execute(sttmt).first()
+    if result is None:
+        return False
 
-    return False
+    return mo.UserInDB(
+        username=result.username,
+        email=result.email,
+        disabled=result.disabled,
+        hashed_password=result.password)
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
@@ -68,7 +76,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
+        token_data = mo.TokenData(username=username)
     except JWTError as jwt_exc:
         raise credentials_exception from jwt_exc
     user = get_user(mo.fake_users_db, username=token_data.username)
