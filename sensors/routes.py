@@ -1,5 +1,6 @@
 from fastapi import APIRouter
-from .models import sensor_details_table, SensorDetails, con
+from api.models import con
+from .models import sensor_details_table, SensorDetails
 
 
 router = APIRouter(tags=["sensors"])
