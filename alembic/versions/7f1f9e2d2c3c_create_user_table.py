@@ -1,8 +1,8 @@
-"""create sensor table
+"""create user table
 
-Revision ID: 4795ecfe95fc
-Revises: 
-Create Date: 2021-05-29 00:16:28.400846
+Revision ID: 7f1f9e2d2c3c
+Revises: 4795ecfe95fc
+Create Date: 2021-05-29 02:56:05.034685
 
 """
 from alembic import op
@@ -12,8 +12,8 @@ from sqlalchemy.sql import expression
 from sqlalchemy.ext.compiler import compiles
 
 # revision identifiers, used by Alembic.
-revision = '4795ecfe95fc'
-down_revision = None
+revision = '7f1f9e2d2c3c'
+down_revision = '4795ecfe95fc'
 branch_labels = None
 depends_on = None
 
@@ -30,19 +30,17 @@ def pg_utcnow(element, compiler, **kw):
     return "TIMEZONE('utc', CURRENT_TIMESTAMP)"
 
 
-# TODO: https://github.com/sqlalchemy/sqlalchemy/issues/3444
-# Look into updated_at not updating onupdate
 def upgrade():
     op.create_table(
-        "sensor_details",
+        "users",
         sa.Column("id", sa.Integer, primary_key=True),
-        sa.Column("sensor_name", sa.String(100)),
-        sa.Column("units_short", sa.String(20)),
-        sa.Column("units_long", sa.String(50)),
+        sa.Column("username", sa.String(100)),
+        sa.Column("email", sa.String(100)),
+        sa.Column("password", sa.String(100)),
         sa.Column("updated_at", sa.DateTime,
                   server_default=utcnow(), server_onupdate=utcnow()),
     )
 
 
 def downgrade():
-    op.drop_table("sensor_details")
+    op.drop_table("users")
