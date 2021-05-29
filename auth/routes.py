@@ -1,6 +1,7 @@
 from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy import exc
 from api.models import con
 import auth.models as mo
 from .auth import ACCESS_TOKEN_EXPIRE_MINUTES, get_current_active_user
@@ -45,5 +46,11 @@ async def create_user(user: mo.UserInDB):
         password=pwd_context.hash(user.hashed_password),
         disabled=user.disabled
     )
-    result = con.execute(query)
+    try:
+        result = con.execute(query)
+    except exc.IntegrityError as error:
+        return {"error": "username or email taken"}
+    except exc.SQLAlchemyError as error:
+        return {"error": "could not save record"}
+
     return {"inserted_at": result.inserted_primary_key}

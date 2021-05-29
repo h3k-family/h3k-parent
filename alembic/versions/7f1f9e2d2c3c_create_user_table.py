@@ -34,8 +34,8 @@ def upgrade():
     op.create_table(
         "users",
         sa.Column("id", sa.Integer, primary_key=True),
-        sa.Column("username", sa.String(100)),
-        sa.Column("email", sa.String(100)),
+        sa.Column("username", sa.String(100), unique=True),
+        sa.Column("email", sa.String(100), unique=True),
         sa.Column("password", sa.String(100)),
         sa.Column("disabled", sa.Boolean),
         sa.Column("updated_at", sa.DateTime,
