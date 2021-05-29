@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy import exc
+import sqlalchemy as sa
 from api.models import con
 from auth.auth import get_current_active_user
-from auth.models import DbUser
+from auth.models import DbUser, user_table
 from .models import sensor_details_table, SensorDetails
 from .models import sensor_data_table, SensorData
 
@@ -46,4 +47,23 @@ async def add_sensor_data(sensor_data: SensorData,
 
 @router.get("/data/")
 async def get_all_sensor_data():
-    return {"data": "all"}
+    sttmt = sa.select(
+        sensor_data_table,
+        sensor_details_table.c.sensor_name,
+        user_table.c.username,
+        sensor_details_table.c.units_short,
+        sensor_details_table.c.units_long,
+        sensor_details_table.c.latitude,
+        sensor_details_table.c.longitude,
+    ).join(
+        sensor_details_table,
+        sensor_data_table.c.sensor_id == sensor_details_table.c.id
+    ).join(
+        user_table, sensor_details_table.c.owner == user_table.c.id
+    )
+    results = con.execute(sttmt)
+    to_return = []
+    for result in results:
+        to_return.append(result)
+        print(result)
+    return to_return
