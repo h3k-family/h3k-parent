@@ -30,7 +30,7 @@ def get_password_hash(password):
 
 
 def authenticate_user(fake_db, username: str, password: str):
-    user = get_user(fake_db, username)
+    user = get_user(username)
     if not user:
         return False
     if not verify_password(password, user.hashed_password):
@@ -38,7 +38,7 @@ def authenticate_user(fake_db, username: str, password: str):
     return user
 
 
-def get_user(database, username: str):
+def get_user(username: str):
     sttmt = mo.sa.select(mo.user_table).where(
         mo.user_table.c.username == username
     )
@@ -79,7 +79,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         token_data = mo.TokenData(username=username)
     except JWTError as jwt_exc:
         raise credentials_exception from jwt_exc
-    user = get_user(mo.fake_users_db, username=token_data.username)
+    user = get_user(username=token_data.username)
     if user is None:
         raise credentials_exception
     return user

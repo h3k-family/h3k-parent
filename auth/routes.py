@@ -29,13 +29,8 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 
 
 @router.get("/users/me/", tags=["auth"])
-async def read_users_me(current_user: mo.User = Depends(get_current_active_user)):
+async def my_account_details(current_user: mo.User = Depends(get_current_active_user)):
     return current_user
-
-
-@router.get("/users/me/items/", tags=["auth"])
-async def read_own_items(current_user: mo.User = Depends(get_current_active_user)):
-    return [{"item_id": "Foo", "owner": current_user.username}]
 
 
 @router.post("/users/add/", tags=["auth"])
