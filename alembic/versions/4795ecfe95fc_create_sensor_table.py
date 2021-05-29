@@ -31,14 +31,18 @@ def pg_utcnow(element, compiler, **kw):
 
 
 # TODO: https://github.com/sqlalchemy/sqlalchemy/issues/3444
+# https://docs-sqlalchemy.readthedocs.io/ko/latest/core/defaults.html
 # Look into updated_at not updating onupdate
 def upgrade():
     op.create_table(
         "sensor_details",
         sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("sensor_name", sa.String(100)),
+        sa.Column("owner", sa.Integer),
         sa.Column("units_short", sa.String(20)),
         sa.Column("units_long", sa.String(50)),
+        sa.Column("longitude", sa.Float),
+        sa.Column("latitude", sa.Float),
         sa.Column("updated_at", sa.DateTime,
                   server_default=utcnow(), server_onupdate=utcnow()),
     )
