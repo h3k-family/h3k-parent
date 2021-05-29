@@ -1,7 +1,7 @@
 """create user table
 
 Revision ID: 7f1f9e2d2c3c
-Revises: 4795ecfe95fc
+Revises: 
 Create Date: 2021-05-29 02:56:05.034685
 
 """
@@ -13,7 +13,7 @@ from sqlalchemy.ext.compiler import compiles
 
 # revision identifiers, used by Alembic.
 revision = '7f1f9e2d2c3c'
-down_revision = '4795ecfe95fc'
+down_revision = None
 branch_labels = None
 depends_on = None
 
