@@ -1,6 +1,7 @@
 from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
+from api.models import con
 import auth.models as mo
 from .auth import ACCESS_TOKEN_EXPIRE_MINUTES, get_current_active_user
 from .auth import create_access_token, authenticate_user
@@ -38,4 +39,11 @@ async def read_own_items(current_user: mo.User = Depends(get_current_active_user
 
 @router.post("/users/add/", tags=["auth"])
 async def create_user(user: mo.UserInDB):
-    return user
+    query = mo.user_table.insert().values(
+        username=user.username,
+        email=user.email,
+        password=user.hashed_password,
+        disabled=user.disabled
+    )
+    result = con.execute(query)
+    return {"inserted_at": result.inserted_primary_key}
