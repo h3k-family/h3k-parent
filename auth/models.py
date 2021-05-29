@@ -26,6 +26,14 @@ class UserInDB(User):
     hashed_password: str
 
 
+class DbUser(BaseModel):
+    id: int
+    username: str
+    email: Optional[str] = None
+    disabled: Optional[bool] = False
+    hashed_password: str
+
+
 class utcnow(expression.FunctionElement):
     type = sa.DateTime()
 

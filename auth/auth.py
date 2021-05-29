@@ -46,7 +46,8 @@ def get_user(username: str):
     if result is None:
         return False
 
-    return mo.UserInDB(
+    return mo.DbUser(
+        id=result.id,
         username=result.username,
         email=result.email,
         disabled=result.disabled,
@@ -85,7 +86,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     return user
 
 
-async def get_current_active_user(current_user: mo.User = Depends(get_current_user)):
+async def get_current_active_user(current_user: mo.DbUser = Depends(get_current_user)):
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
