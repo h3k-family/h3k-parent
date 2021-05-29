@@ -34,7 +34,7 @@ def upgrade():
     op.create_table(
         "children",
         sa.Column("id", sa.Integer, primary_key=True),
-        sa.Column("url", sa.String(100), unique=True),
+        sa.Column("url", sa.Text, unique=True),
         sa.Column("updated_at", sa.DateTime,
                   server_default=utcnow(), server_onupdate=utcnow()),
     )
