@@ -65,5 +65,4 @@ async def get_all_sensor_data():
     to_return = []
     for result in results:
         to_return.append(result)
-        print(result)
     return to_return
